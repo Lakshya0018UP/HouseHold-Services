@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome to your Dashboard</h2>
+    {% if role == 'admin' %}
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-warning">Admin Panel</a>
+    {% elif role == 'customer' %}
+        <a href="{{ url_for('services') }}" class="btn btn-primary">Browse Services</a>
+    {% elif role == 'professional' %}
+        <a href="{{ url_for('service_requests') }}" class="btn btn-success">View Service Requests</a>
+    {% endif %}
+</div>
+{% endblock %}

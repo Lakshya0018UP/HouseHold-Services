@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Add Service{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Add New Service</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Service Name:</label>
+            {{ form.name(class="form-control", placeholder="Enter service name") }}
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price:</label>
+            {{ form.price(class="form-control", placeholder="Enter price") }}
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            {{ form.description(class="form-control", placeholder="Enter description") }}
+        </div>
+
+        <div class="mb-3">
+            <label for="time_required" class="form-label">Time Required (in minutes):</label>
+            {{ form.time_required(class="form-control", placeholder="Enter time in minutes") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Service</button>
+        <a href="{{ url_for('services') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

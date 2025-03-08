@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Service Requests{% endblock %}
+
+{% block content %}
+<h2>Service Requests</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Date of Request</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in service_requests %}
+        <tr>
+            <td>{{ request.service.name }}</td>
+            <td>{{ request.customer.username }}</td>
+            <td>{{ request.service_status }}</td>
+            <td>{{ request.date_of_request.strftime('%Y-%m-%d') }}</td>
+            <td>
+                {% if request.service_status == 'requested' %}
+                    <a href="{{ url_for('accept_request', request_id=request.id) }}" class="btn btn-primary">Accept</a>
+                    <a href="{{ url_for('reject_request', request_id=request.id) }}" class="btn btn-danger">Reject</a>
+                {% elif request.service_status == 'accepted' %}
+                    <a href="{{ url_for('complete_request', request_id=request.id) }}" class="btn btn-success">Mark as Completed</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
